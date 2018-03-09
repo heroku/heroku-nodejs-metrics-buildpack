@@ -12,18 +12,24 @@ BUILD_DIR=$1
 #CACHE_DIR=$2
 #ENV_DIR=$3
 
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+
 arrow "Setting up .profile.d to automatically run metrics agent..."
 mkdir -p "${BUILD_DIR}/.profile.d"
 cp .profile.d/heroku-nodejs-metrics-plugin.sh "${BUILD_DIR}/.profile.d"
 
-if [[ -d "${BUILD_DIR}/package.json" ]]; then
+if [[ -e "${BUILD_DIR}/package.json" ]]; then
     arrow "Installing Nodejs metrics plugin"
     mkdir -p "${BUILD_DIR}/bin/"
 
-    # agent_jar="${BUILD_DIR}/bin/heroku-metrics-agent.jar"
-    # curl --retry 3 -s -o ${agent_jar} \
-    #   -L ${HEROKU_METRICS_JAR_URL:-"http://repo1.maven.org/maven2/com/heroku/agent/heroku-java-metrics-agent/3.3/heroku-java-metrics-agent-3.3.jar"}
-    # if [[ ! -f ${agent_jar} ]]; then
-    #     indent "WARNING: failed to install metrics agent!"
-    # fi
+    local node_plugin_dir="${BUILD_DIR}/bin/node-metrics-plugin"
+    local node_metrics_plugin_dir="${BP_DIR}/node-metrics-plugin"
+
+    cp -r $node_metrics_plugin_dir $node_plugin_dir
+
+    cd $node_plugin_dir
+    npm install
+    cd $BP_DIR
+
+    indent "Metrics agent installed"
 fi
