@@ -20,15 +20,15 @@ cp .profile.d/heroku-nodejs-metrics-plugin.sh "${BUILD_DIR}/.profile.d"
 
 if [[ -e "${BUILD_DIR}/package.json" ]]; then
     arrow "Installing Nodejs metrics plugin"
-    mkdir -p "${BUILD_DIR}/bin/"
+    mkdir -p "${BUILD_DIR}/.heroku/"
 
-    node_plugin_dir="${BUILD_DIR}/bin/node-metrics-plugin"
+    node_plugin_dir="${BUILD_DIR}/.heroku/node-metrics-plugin"
     node_metrics_plugin_dir="${BP_DIR}/node-metrics-plugin"
 
     cp -r $node_metrics_plugin_dir $node_plugin_dir
 
     cd $node_plugin_dir
-    npm install
+    npm install > /dev/null
     cd $BP_DIR
 
     indent "Metrics agent installed"
