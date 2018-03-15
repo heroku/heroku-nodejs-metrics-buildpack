@@ -3,7 +3,7 @@ const request = require("request");
 const { Histogram } = require("measured");
 const eventLoopStats = require('./eventLoopStats');
 
-const METRICS_INTERVAL = 20000; // 20 seconds
+const METRICS_INTERVAL = parseInt(process.env.METRICS_INTERVAL_OVERRIDE, 10) || 20000; // 20 seconds
 
 // Add timers that approximate the delay in the event loop
 // const eventLoopMonitor = new EventLoopMonitor();

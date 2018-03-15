@@ -1,0 +1,6 @@
+{
+  "hatchet": {
+    "directory": "spec/fixtures"
+  },
+  "single-process": ["heroku/node-metrics-single-process"]
+}
