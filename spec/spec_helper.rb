@@ -39,14 +39,19 @@ def set_node_version(directory, version)
 end
 
 def successful_body(app, options = {})
-  retry_limit = options[:retry_limit] || 50
+  retry_limit = options[:retry_limit] || 50 
   path = options[:path] ? "/#{options[:path]}" : ''
   Excon.get("http://#{app.name}.herokuapp.com#{path}", :idempotent => true, :expects => 200, :retry_limit => retry_limit).body
 end
 
-# ReplRunner.register_commands(:console)  do |config|
-#   config.terminate_command "exit"          # the command you use to end the 'rails console'
-#   config.startup_timeout 60                # seconds to boot
-#   config.return_char "\n"                  # the character that submits the command
-#   config.sync_stdout "STDOUT.sync = true"  # force REPL to not buffer standard out
-# end
+def successful_json_body(app, options = {})
+  body = successful_body(app, options)
+  JSON.parse(body)
+end
+
+def resolve_node_version(requirements) 
+  requirements.map do |requirement|
+
+  end
+  # use nodebin to get latest node versions
+end
