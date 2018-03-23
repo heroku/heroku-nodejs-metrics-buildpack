@@ -49,9 +49,11 @@ def successful_json_body(app, options = {})
   JSON.parse(body)
 end
 
-def resolve_node_version(requirements) 
-  requirements.map do |requirement|
-
-  end
+def resolve_node_version(requirements, options = {}) 
   # use nodebin to get latest node versions
+  requirements.map do |requirement|
+    retry_limit = options[:retry_limit] || 50 
+    body = Excon.get("https://nodebin.herokai.com/v1/node/linux-x64/latest?range=#{requirement}", :idempotent => true, :expects => 200, :retry_limit => retry_limit).body
+    JSON.parse(body)['number']
+  end
 end

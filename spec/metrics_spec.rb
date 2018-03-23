@@ -9,7 +9,7 @@ describe "Node Metrics Hello World" do
     `heroku features:enable runtime-heroku-metrics --app #{app.name}`
   end
 
-  ["8.10.0", "6.13.1"].each do |version|
+  resolve_node_version(["8.x", "6.x"]).each do |version|
     context "a single-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
@@ -28,7 +28,7 @@ describe "Node Metrics Hello World" do
     end
   end
 
-  ["8.10.0", "6.13.1"].each do |version|
+  resolve_node_version(["8.x", "6.x"]).each do |version|
     context "a multi-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
@@ -59,7 +59,7 @@ describe "Node Metrics" do
     })
   end
 
-  ["8.10.0", "6.13.1"].each do |version|
+  resolve_node_version(["8.x", "6.x"]).each do |version|
     context "a multi-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
