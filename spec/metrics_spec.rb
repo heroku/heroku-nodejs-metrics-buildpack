@@ -14,7 +14,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-single-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack"]
+          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
         )
       }
       let(:node_version) { version }
@@ -33,7 +33,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-multi-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack"]
+          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
         )
       }
       let(:node_version) { version }
@@ -64,7 +64,7 @@ describe "Node Metrics" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-test-app",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack"]
+          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
         )
       }
 
