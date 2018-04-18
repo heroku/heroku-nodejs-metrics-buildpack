@@ -24,7 +24,7 @@ This buildpack is expected to be rolled into the official Node buildpack before 
 
 ## Testing
 
-This buildpack uses [Hatchet](https://github.com/heroku/hatchet) to run integration tests. To run them local
+This buildpack uses [Hatchet](https://github.com/heroku/hatchet) to run integration tests. To run them locally
 make sure you have [Ruby](https://www.ruby-lang.org/) installed, then execute:
 
 ```sh-session
