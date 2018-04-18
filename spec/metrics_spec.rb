@@ -33,7 +33,7 @@ describe "Node Metrics Hello World" do
         app.deploy do |app|
           expect(app.output).to include("-----> Build succeeded!")
           expect(app.output).to include("HerokuNodejsRuntimeMetrics app detected")
-          expect(successful_body(app).strip).to eq("Hello, world!")
+          expect(successful_body(app).strip).to eq("--require /app/.heroku/node-metrics-plugin")
         end
       end
     end
@@ -114,7 +114,7 @@ describe "Unsupported Node version" do
     context "Unsupported Node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
-          "node-metrics-single-process",
+          "node-metrics-multi-process",
           buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git##{branch}"]
         )
       }
@@ -133,3 +133,35 @@ describe "Unsupported Node version" do
   end
 end
 
+describe "Don't overwrite NODE_OPTIONS" do
+  before(:each) do
+    set_node_version(app.directory, node_version)
+    app.setup!
+    app.set_config({
+      "HEROKU_METRICS_URL" => "http://localhost:3000",
+      "METRICS_INTERVAL_OVERRIDE" => "10000",
+      "NODE_OPTIONS" => "--max-old-space-size=500"
+    })
+  end
+
+  resolve_node_version(["8.x"]).each do |version|
+    context "Don't overwrite NODE_OPTIONS v#{version}" do
+      let(:app) {
+        Hatchet::Runner.new(
+          "node-metrics-single-process",
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git##{branch}"]
+        )
+      }
+
+      let(:node_version) { version }
+      it "should deploy" do
+        app.deploy do |app|
+          expect(app.output).to include("-----> Build succeeded!")
+          expect(app.output).to include("HerokuNodejsRuntimeMetrics app detected")
+          expect(app.output).to include("NODE_OPTIONS: --max-old-space-size=500")
+          expect(successful_body(app).strip).to eq("--max-old-space-size=500 --require /app/.heroku/node-metrics-plugin")
+        end
+      end
+    end
+  end
+end
