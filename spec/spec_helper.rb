@@ -5,6 +5,7 @@ require 'hatchet'
 require 'rspec/retry'
 require 'date'
 require 'json'
+require 'sem_version'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -54,5 +55,15 @@ def resolve_node_version(requirements, options = {})
     retry_limit = options[:retry_limit] || 50 
     body = Excon.get("https://nodebin.herokai.com/v1/node/linux-x64/latest?range=#{requirement}", :idempotent => true, :expects => 200, :retry_limit => retry_limit).body
     JSON.parse(body)['number']
+  end
+end
+
+def resolve_all_supported_node_versions(options = {})
+  retry_limit = options[:retry_limit] || 50 
+  body = Excon.get("https://nodebin.herokai.com/v1/node/linux-x64/", :idempotent => true, :expects => 200, :retry_limit => retry_limit).body
+  list = JSON.parse(body).map { |n| n['number'] }
+
+  list.select do |n| 
+    SemVersion.new(n).satisfies?('>= 8.0.0')
   end
 end

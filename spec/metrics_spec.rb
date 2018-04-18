@@ -13,7 +13,10 @@ describe "Node Metrics Hello World" do
     })
   end
 
-  resolve_node_version(["8.x", "6.x"]).each do |version|
+  # versions = resolve_node_version(["8.x", "9.x"])
+  versions = resolve_all_supported_node_versions()
+
+  versions.each do |version|
     context "a single-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
@@ -32,7 +35,7 @@ describe "Node Metrics Hello World" do
     end
   end
 
-  resolve_node_version(["8.x", "6.x"]).each do |version|
+  versions.each do |version|
     context "a multi-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
@@ -63,7 +66,10 @@ describe "Node Metrics" do
     })
   end
 
-  resolve_node_version(["8.x", "6.x"]).each do |version|
+  # versions = resolve_node_version(["8.x", "9.x"])
+  versions = resolve_all_supported_node_versions()
+
+  versions.each do |version|
     context "a multi-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(

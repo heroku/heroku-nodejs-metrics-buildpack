@@ -44,6 +44,7 @@ GEM
     rspec-retry (0.5.6)
       rspec-core (> 3.3, < 3.8)
     rspec-support (3.7.1)
+    sem_version (2.0.1)
     thor (0.20.0)
     thread_safe (0.3.6)
     threaded (0.0.4)
@@ -57,6 +58,7 @@ DEPENDENCIES
   heroku_hatchet
   rspec-expectations
   rspec-retry
+  sem_version
 
 BUNDLED WITH
    1.16.1
