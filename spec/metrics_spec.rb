@@ -124,7 +124,7 @@ describe "Unsupported Node version" do
         app.deploy do |app|
           expect(app.output).to include("-----> Build succeeded!")
           expect(app.output).to include("HerokuNodejsRuntimeMetrics app detected")
-          expect(app.output).to include("The Heroku Node.js Metrics Plugin does not support Node v##{version}")
+          expect(app.output).to include("The Heroku Node.js Metrics Plugin does not support Node v#{version}")
           expect(app.output).to include("https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs")
           expect(successful_body(app).strip).to eq("Hello, world!")
         end
