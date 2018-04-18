@@ -20,7 +20,7 @@ metrics to `$HEROKU_METRICS_URL` for processing.
 
 ## Future Plans
 
-This buildpack is expected to be rolled into the official Node buildpack before Node metrics are GA.
+This buildpack is expected to be rolled into the [official Node buildpack](https://github.com/heroku/heroku-buildpack-nodejs) before Node metrics are GA.
 
 ## Testing
 
