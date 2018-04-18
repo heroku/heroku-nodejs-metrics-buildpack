@@ -14,7 +14,7 @@ skip_old_node_versions() {
     # node_version:1:2 = index the string starting from position 1 for length 2
     #                    in this case it will be something like: "6." "8." "10"
     # ${var%\.} strip a trailing "." if it exists
-    if [ "${node_version:1:1}" -lt "8" ] || [ "${${node_version:1:2}%\.}" -ne "10" ]; then
+    if [ "${node_version:1:1}" -lt "8" ] || [ "${${node_version:1:2}%\\.}" -ne "10" ]; then
         echo    ""
         echo -e "       \e[33mThe Heroku Node.js Metrics Plugin does not support Node ${node_version}\e[39m"
         echo    ""
