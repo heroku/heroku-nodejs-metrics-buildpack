@@ -25,7 +25,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-single-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git#{branch}"]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git##{branch}"]
         )
       }
       let(:node_version) { version }
@@ -44,7 +44,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-multi-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git#{branch}"]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git##{branch}"]
         )
       }
       let(:node_version) { version }
@@ -81,7 +81,7 @@ describe "Node Metrics" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-test-app",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git#{branch}"]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git##{branch}"]
         )
       }
 
@@ -115,7 +115,7 @@ describe "Unsupported Node version" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-single-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git#{branch}"]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git##{branch}"]
         )
       }
 
@@ -124,7 +124,7 @@ describe "Unsupported Node version" do
         app.deploy do |app|
           expect(app.output).to include("-----> Build succeeded!")
           expect(app.output).to include("HerokuNodejsRuntimeMetrics app detected")
-          expect(app.output).to include("The Heroku Node.js Metrics Plugin does not support Node v#{version}")
+          expect(app.output).to include("The Heroku Node.js Metrics Plugin does not support Node v##{version}")
           expect(app.output).to include("https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs")
           expect(successful_body(app).strip).to eq("Hello, world!")
         end
