@@ -1,0 +1,10 @@
+language: bash
+dist: trusty
+sudo: true
+branches:
+  only:
+  - master
+before_install: bash etc/ci-setup.sh
+install: true
+script: sh etc/hatchet.sh spec/
+after_script: heroku keys:remove $USER@`hostname`

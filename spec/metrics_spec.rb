@@ -6,7 +6,11 @@ describe "Node Metrics Hello World" do
   before(:each) do
     set_node_version(app.directory, node_version)
     app.setup!
-    `heroku features:enable runtime-heroku-metrics --app #{app.name}`
+    # `heroku features:enable runtime-heroku-metrics --app #{app.name}`
+    app.set_config({
+      "HEROKU_METRICS_URL" => "http://localhost:3000",
+      "METRICS_INTERVAL_OVERRIDE" => "10000"
+    })
   end
 
   resolve_node_version(["8.x", "6.x"]).each do |version|
@@ -14,7 +18,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-single-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack"]
+          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
         )
       }
       let(:node_version) { version }
@@ -33,7 +37,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-multi-process",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack"]
+          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
         )
       }
       let(:node_version) { version }
@@ -64,7 +68,7 @@ describe "Node Metrics" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-test-app",
-          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack"]
+          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
         )
       }
 
