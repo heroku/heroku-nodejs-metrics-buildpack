@@ -9,10 +9,6 @@ arrow() {
   echo '----->' "$@"
 }
 
-indent() {
-  sed -u 's/^/       /'
-}
-
 skip_old_node_versions() {
     local node_version="$(node --version)"
     # major_string will be ex: "6." "8." "10"
@@ -33,7 +29,7 @@ skip_old_node_versions() {
 ### Handle errors
 
 handle_failure() {
-  echo indent "An unknown error occured. Failed to install Heroku Node Metrics plugin"
+  echo "An unknown error occured. Failed to install Heroku Node Metrics plugin"
 }
 trap 'handle_failure' ERR
 
@@ -60,5 +56,5 @@ if [[ -e "${BUILD_DIR}/package.json" ]]; then
     npm install > /dev/null
     cd $BUILD_DIR
 
-    echo indent "Metrics plugin installed"
+    echo "       Metrics plugin installed"
 fi
