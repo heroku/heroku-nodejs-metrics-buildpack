@@ -1,12 +1,14 @@
 # heroku-nodejs-metrics-buildpack
 
 This buildpack sets up the necessary machinery to utilize
-[Heroku's Language Metrics](https://devcenter.heroku.com/articles/language-runtime-metrics) feature,
-for Node.js
+[Heroku's Language Metrics](https://devcenter.heroku.com/articles/language-runtime-metrics) feature
+for Node.js applications.
 
 # What Node versions does it support
 
-This buildpack supports all Node versions greater than 8.0.0. That is all 8.x, 9.x, and 10.x releases.
+This buildpack supports all Node versions greater than 8.0.0. All 8.x, 9.x, and 10.x releases are supported.
+
+Including this buildpack with an earlier version of Node will not break the application, it will become a no-op.
 
 ## How does it affect my slug?
 
