@@ -13,15 +13,18 @@ describe "Node Metrics Hello World" do
     })
   end
 
-  # versions = resolve_node_version(["8.x", "9.x"])
-  versions = resolve_all_supported_node_versions()
+  if ENV['TEST_ALL_NODE_VERSIONS'] == 'true'
+    versions = resolve_all_supported_node_versions()
+  else 
+    versions = resolve_node_version(["8.x", "9.x"])
+  end
 
   versions.each do |version|
     context "a single-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-single-process",
-          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git"]
         )
       }
       let(:node_version) { version }
@@ -40,7 +43,7 @@ describe "Node Metrics Hello World" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-multi-process",
-          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git"]
         )
       }
       let(:node_version) { version }
@@ -66,15 +69,18 @@ describe "Node Metrics" do
     })
   end
 
-  # versions = resolve_node_version(["8.x", "9.x"])
-  versions = resolve_all_supported_node_versions()
+  if ENV['TEST_ALL_NODE_VERSIONS'] == 'true'
+    versions = resolve_all_supported_node_versions()
+  else 
+    versions = resolve_node_version(["8.x", "9.x"])
+  end
 
   versions.each do |version|
     context "a multi-process node v#{version} app" do
       let(:app) {
         Hatchet::Runner.new(
           "node-metrics-test-app",
-          buildpacks: ["heroku/nodejs", Hatchet::App.default_buildpack]
+          buildpacks: ["heroku/nodejs", "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git"]
         )
       }
 

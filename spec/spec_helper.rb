@@ -22,10 +22,6 @@ RSpec.configure do |config|
   end
 end
 
-def git_repo
-  "https://github.com/heroku/heroku-nodejs-metrics-buildpack.git"
-end
-
 def set_node_version(directory, version)
   Dir.chdir(directory) do
     package_json = File.open('package.json', 'rb') { |f| f.read }
