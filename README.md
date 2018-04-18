@@ -33,5 +33,12 @@ make sure you have [Ruby](https://www.ruby-lang.org/) installed, then execute:
 
 ```
 $ bundle install
-$ bundle exec rspec spec/
+$ bundle exec rspec
+```
+
+While it takes too long to run on Travis as part of CI, you can validate changes across every supported version of Node locally by running:
+
+```
+$ bundle install
+$ TEST_ALL_NODE_VERSIONS=true bundle exec rspec
 ```
