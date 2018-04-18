@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit    # always exit on error
+set -o pipefail   # don't ignore exit codes when piping output
+
+BUILD_DIR=$1
+
 arrow() {
   echo '----->' "$@"
 }
@@ -25,9 +30,14 @@ skip_old_node_versions() {
     fi
 }
 
-BUILD_DIR=$1
-#CACHE_DIR=$2
-#ENV_DIR=$3
+### Handle errors
+
+handle_failure() {
+  echo indent "An unknown error occured. Failed to install Heroku Node Metrics plugin"
+}
+trap 'handle_failure' ERR
+
+### Main script
 
 skip_old_node_versions
 
@@ -48,7 +58,7 @@ if [[ -e "${BUILD_DIR}/package.json" ]]; then
 
     cd $node_plugin_dir
     npm install > /dev/null
-    cd $BP_DIR
+    cd $BUILD_DIR
 
-    indent "Metrics agent installed"
+    echo indent "Metrics plugin installed"
 fi
