@@ -10,11 +10,11 @@ indent() {
 
 skip_old_node_versions() {
     local node_version="$(node --version)"
-    # ${${node_version:1:2}%\.} Explanation
-    # node_version:1:2 = index the string starting from position 1 for length 2
-    #                    in this case it will be something like: "6." "8." "10"
-    # ${var%\.} strip a trailing "." if it exists
-    if [ "${node_version:1:1}" -lt "8" ] || [ "${${node_version:1:2}%\\.}" -ne "10" ]; then
+    local major_string=${node_version:1:2}
+    local major=${major_string//.}
+    echo $major_string
+    echo $major
+    if [ "${major}" -lt "8" ]; then
         echo    ""
         echo -e "       \e[33mThe Heroku Node.js Metrics Plugin does not support Node ${node_version}\e[39m"
         echo    ""
