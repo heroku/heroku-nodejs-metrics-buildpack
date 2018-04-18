@@ -10,10 +10,10 @@ indent() {
 
 skip_old_node_versions() {
     local node_version="$(node --version)"
+    # major_string will be ex: "6." "8." "10"
     local major_string=${node_version:1:2}
+    # strip any "."s from major_string
     local major=${major_string//.}
-    echo $major_string
-    echo $major
     if [ "${major}" -lt "8" ]; then
         echo    ""
         echo -e "       \e[33mThe Heroku Node.js Metrics Plugin does not support Node ${node_version}\e[39m"
