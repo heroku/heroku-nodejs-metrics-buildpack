@@ -8,7 +8,7 @@ for Node.js applications.
 
 This buildpack supports all Node versions greater than `8.0.0`. All `8.x`, `9.x`, and `10.x` releases are supported.
 
-Including this buildpack with an earlier version of Node will not break the application, it will become a no-op.
+Including this buildpack with an earlier version of Node will not break the application. It will simply become a no-op.
 
 ## How does it affect my slug?
 
