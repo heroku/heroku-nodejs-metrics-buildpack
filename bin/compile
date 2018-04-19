@@ -34,6 +34,8 @@ handle_failure() {
   echo -e "\e[1m\e[33mAn unknown error occured. Failed to install Heroku Node Metrics plugin\e[0m"
   echo    ""
   echo -e "\e[1mPlease open a support ticket at https://help.heroku.com/\e[0m"
+  echo    ""
+  echo    ""
 }
 trap 'handle_failure' ERR
 
