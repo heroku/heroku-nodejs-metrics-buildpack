@@ -1,18 +1,10 @@
-# fuzzy-rotary-phone
+# node-metrics-plugin
 
-A simple npm package to add heroku runtime metrics to an existing node.js 
-application.
+An package to add heroku runtime metrics to an existing Node.js application.
 
 ## Usage
 
-```console
-$ npm install --save fuzzy-rotary-phone
-```
-
-And then in the main file of each process you want monitored add:
-```javascript
-require("fuzzy-rotary-phone");
-```
+See: https://github.com/heroku/heroku-nodejs-metrics-buildpack for more details
 
 ## Metrics collected
 
@@ -29,6 +21,3 @@ require("fuzzy-rotary-phone");
   }
 }
 ```
-
-See https://github.com/Xe/fuzzy-rotary-phone/blob/master/src/index.js#L4 for more
-explanation on the individual metrics being monitored.
