@@ -1,11 +1,12 @@
 #!/bin/bash
 
+set -o errexit    # always exit on error
+set -o pipefail   # don't ignore exit codes when piping output
+
+BUILD_DIR=$1
+
 arrow() {
   echo '----->' "$@"
-}
-
-indent() {
-  sed -u 's/^/       /'
 }
 
 skip_old_node_versions() {
@@ -16,7 +17,7 @@ skip_old_node_versions() {
     local major=${major_string//.}
     if [ "${major}" -lt "8" ]; then
         echo    ""
-        echo -e "       \e[33mThe Heroku Node.js Metrics Plugin does not support Node ${node_version}\e[39m"
+        echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not support Node ${node_version}\e[39m"
         echo    ""
         echo    "       No Node-specific metrics will be collected for this application."
         echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
@@ -25,15 +26,25 @@ skip_old_node_versions() {
     fi
 }
 
-BUILD_DIR=$1
-#CACHE_DIR=$2
-#ENV_DIR=$3
+### Handle errors
+
+handle_failure() {
+  echo    ""
+  echo    ""
+  echo -e "\e[1m\e[33mAn unknown error occured. Failed to install Heroku Node Metrics plugin\e[0m"
+  echo    ""
+  echo -e "\e[1mPlease open a support ticket at https://help.heroku.com/\e[0m"
+  echo    ""
+  echo    ""
+}
+trap 'handle_failure' ERR
+
+### Main script
 
 skip_old_node_versions
 
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 
-arrow "Setting up .profile.d to automatically run metrics agent..."
 mkdir -p "${BUILD_DIR}/.profile.d"
 cp .profile.d/heroku-nodejs-metrics-plugin.sh "${BUILD_DIR}/.profile.d"
 
@@ -48,7 +59,7 @@ if [[ -e "${BUILD_DIR}/package.json" ]]; then
 
     cd $node_plugin_dir
     npm install > /dev/null
-    cd $BP_DIR
+    cd $BUILD_DIR
 
-    indent "Metrics agent installed"
+    arrow "Nodejs metrics plugin installed"
 fi
