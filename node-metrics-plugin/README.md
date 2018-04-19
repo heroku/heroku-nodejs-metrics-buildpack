@@ -1,6 +1,6 @@
 # node-metrics-plugin
 
-An package to add heroku runtime metrics to an existing Node.js application.
+A metrics plugin to add Heroku runtime metrics to an existing Node.js application.
 
 ## Usage
 
