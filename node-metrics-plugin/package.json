@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "A hack designed to prototype out runtime metrics.",
   "main": "src/index.js",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "exit 100"
+  },
   "dependencies": {
     "gc-stats": "^1.1.0",
     "measured": "^1.1.0",
