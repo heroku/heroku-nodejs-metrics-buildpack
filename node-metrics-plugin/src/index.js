@@ -90,19 +90,3 @@ setInterval(() => {
   gcCount = 0;
   delay.reset();
 }, METRICS_INTERVAL);
-
-// This will block the event loop for ~lengths of time
-function blockCpuFor(ms) {
-  var now = new Date().getTime();
-  var result = 0
-  while (true) {
-    result += Math.random() * Math.random();
-    if (new Date().getTime() > now + ms) {
-      return;
-    }
-  }
-}
-
-setInterval(() => {
-  blockCpuFor(200);
-}, 1000);
