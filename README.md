@@ -4,6 +4,8 @@ This buildpack sets up the necessary machinery to utilize
 [Heroku's Language Metrics](https://devcenter.heroku.com/articles/language-runtime-metrics) feature
 for Node.js applications.
 
+![Event Loop Latency Chart](https://s3.amazonaws.com/heroku-devcenter-files/article-images/1524503853-Image-2018-04-23-10-13-36.png)
+
 # What Node versions does it support
 
 This buildpack supports all Node versions greater than `8.0.0`. All `8.x`, `9.x`, and `10.x` releases are supported.
