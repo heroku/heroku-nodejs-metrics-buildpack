@@ -89,4 +89,4 @@ setInterval(() => {
   pauseNS = 0;
   gcCount = 0;
   delay.reset();
-}, METRICS_INTERVAL);
+}, METRICS_INTERVAL).unref();
