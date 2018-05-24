@@ -37,7 +37,7 @@ skip_node_10_2() {
         echo -e "       \e[33m\e[1mWe are working to resolve this issue.\e[39m"
         echo    "       https://github.com/heroku/heroku-nodejs-metrics-buildpack/issues/14"
         echo    ""
-        echo    "       No Node-specific metrics will be collected for this application."
+        echo    "       No Node-specific metrics will be collected for this release."
         echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
         echo    ""
         exit 0
