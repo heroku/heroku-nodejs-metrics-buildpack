@@ -32,9 +32,9 @@ skip_node_10_2() {
 
     if [ "${snippet}" == "10.2" ]; then
         echo    ""
-        echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not yet support Node ${node_version}\e[39m"
+        echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not yet support Node ${node_version}\e[0m"
         echo    ""
-        echo -e "       \e[33m\e[1mWe are working to resolve this issue.\e[39m"
+        echo -e "       \e[33m\e[1mWe are working to resolve this issue.\e[0m"
         echo    "       https://github.com/heroku/heroku-nodejs-metrics-buildpack/issues/14"
         echo    ""
         echo    "       No Node-specific metrics will be collected for this release."
