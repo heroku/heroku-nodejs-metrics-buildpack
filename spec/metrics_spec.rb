@@ -73,7 +73,7 @@ describe "Node Metrics" do
   if ENV['TEST_ALL_NODE_VERSIONS'] == 'true'
     versions = resolve_all_supported_node_versions()
   else 
-    versions = resolve_node_version(["8.x", "9.x", "10.x"])
+    versions = resolve_node_version(["8.x", "9.x", "10.1.x"])
   end
 
   versions.each do |version|
