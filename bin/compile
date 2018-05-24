@@ -35,7 +35,7 @@ skip_node_10_2() {
         echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not yet support Node ${node_version}\e[39m"
         echo    ""
         echo -e "       \e[33m\e[1mWe are working to resolve this issue.\e[39m"
-        echo    "       Read more here: https://github.com/heroku/heroku-nodejs-metrics-buildpack/issues/14"
+        echo    "       https://github.com/heroku/heroku-nodejs-metrics-buildpack/issues/14"
         echo    ""
         echo    "       No Node-specific metrics will be collected for this application."
         echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
