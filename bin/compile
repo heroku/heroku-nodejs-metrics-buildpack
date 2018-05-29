@@ -30,7 +30,7 @@ skip_node_10_2() {
     local node_version="$(node --version)"
     local snippet=${node_version:1:4}
 
-    if [ "${snippet}" == "10.2" ]; then
+    if [ "${snippet}" == "10.2" ] || [ "${snippet}" == "10.3" ]; then
         echo    ""
         echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not yet support Node ${node_version}\e[0m"
         echo    ""
