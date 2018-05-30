@@ -26,19 +26,16 @@ skip_old_node_versions() {
     fi
 }
 
-skip_node_10_2() {
+skip_node_10_2_0() {
     local node_version="$(node --version)"
-    local snippet=${node_version:1:4}
 
-    if [ "${snippet}" == "10.2" ]; then
+    if [ "${node_version}" == "v10.2.0" ]; then
         echo    ""
-        echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not yet support Node ${node_version}\e[0m"
+        echo -e "       \e[33m\e[1mNode v10.2.0 is not supported by the Heroku Metrics plugin\e[0m"
         echo    ""
-        echo -e "       \e[33m\e[1mWe are working to resolve this issue.\e[0m"
-        echo    "       https://github.com/heroku/heroku-nodejs-metrics-buildpack/issues/14"
-        echo    ""
-        echo    "       No Node-specific metrics will be collected for this release."
-        echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
+        echo    "       This Node version was released with regressions in support for native modules. No Node-specific "
+        echo    "       metrics will be collected for this release. We recommend upgrading to a newer version of the "
+        echo    "       Node 10.x release line."
         echo    ""
         exit 0
     fi
@@ -60,7 +57,7 @@ trap 'handle_failure' ERR
 ### Main script
 
 skip_old_node_versions
-skip_node_10_2
+skip_node_10_2_0
 
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 
