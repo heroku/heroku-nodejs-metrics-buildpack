@@ -36,7 +36,11 @@ describe "Node Metrics Hello World" do
         app.deploy do |app|
           expect(app.output).to include("-----> Build succeeded!")
           expect(app.output).to include("HerokuNodejsRuntimeMetrics app detected")
-          expect(successful_body(app).strip).to eq("--require /app/.heroku/node-metrics-plugin")
+          if version_blacklist.include? version
+            expect(successful_body(app).strip).to eq("not found")
+          else
+            expect(successful_body(app).strip).to eq("--require /app/.heroku/node-metrics-plugin")
+          end
         end
       end
     end
