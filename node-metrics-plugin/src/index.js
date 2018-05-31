@@ -1,3 +1,4 @@
+const http = require('http');
 const https = require('https');
 const url = require('url');
 const { Histogram } = require("measured");
@@ -31,9 +32,8 @@ function submitData(data, cb) {
     },
   };
 
-  const req = https.request(options, res => {
-    cb(null, res);
-  });
+  const request = uri.protocol === 'https:' ? https.request : http.request;
+  const req = request(options, res => cb(null, res));
   req.on('error', cb);
   req.write(postData);
   req.end();
