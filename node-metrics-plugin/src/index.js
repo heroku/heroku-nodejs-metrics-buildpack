@@ -77,6 +77,8 @@ setInterval(() => {
         "[heroku-nodejs-plugin] expected 200 when trying to submit data, got:",
         res.statusCode
       );
+
+      console.log(res);
       return;
     }
   });
