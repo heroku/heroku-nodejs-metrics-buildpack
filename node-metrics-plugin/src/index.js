@@ -12,8 +12,6 @@ let delay = new Histogram();
 // to dynos by runtime iff the app is opped into the heroku runtime metrics
 // beta.
 let uri = url.parse(process.env.HEROKU_METRICS_URL);
-console.log(process.env.HEROKU_METRICS_URL);
-console.log(uri);
 
 nativeStats.start();
 
@@ -23,6 +21,7 @@ function submitData(data, cb) {
   // post data to metricsURL
   const options = {
     method: "POST",
+    protocol: uri.protocol,
     hostname: uri.hostname,
     port: uri.port,
     path: uri.path,
@@ -80,7 +79,6 @@ setInterval(() => {
         res.statusCode
       );
 
-      console.log(res);
       return;
     }
   });
