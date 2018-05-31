@@ -1,4 +1,4 @@
-const http = require('http');
+const https = require('https');
 const url = require('url');
 const { Histogram } = require("measured");
 const nativeStats = require('./nativeStats');
