@@ -12,6 +12,8 @@ let delay = new Histogram();
 // to dynos by runtime iff the app is opped into the heroku runtime metrics
 // beta.
 let uri = url.parse(process.env.HEROKU_METRICS_URL);
+console.log(process.env.HEROKU_METRICS_URL);
+console.log(uri);
 
 nativeStats.start();
 
