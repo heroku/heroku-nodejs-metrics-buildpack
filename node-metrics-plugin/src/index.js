@@ -31,7 +31,7 @@ function submitData(data, cb) {
     },
   };
 
-  const req = http.request(options, res => {
+  const req = https.request(options, res => {
     cb(null, res);
   });
   req.on('error', cb);
