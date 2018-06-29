@@ -19,6 +19,7 @@ get_node_major_version() {
 }
 
 skip_old_node_versions() {
+    local node_version="$(node --version)"
     local major=$(get_node_major_version)
     if [ "${major}" -lt "8" ]; then
         echo    ""
