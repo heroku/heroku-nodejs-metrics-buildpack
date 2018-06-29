@@ -60,6 +60,21 @@ download_assets_for_release() {
     download "https://github.com/heroku/heroku-nodejs-plugin/releases/download/$tag/heroku-nodejs-plugin-node-10-$tag.tar.gz" "$dir/heroku-nodejs-plugin-node-10.tar.gz"
 }
 
+test_hash() {
+    local major=${1}
+    local dir=${2}
+
+    local downloaded_sha=$(cat $dir/heroku-nodejs-plugin-node-$major.sha512 | awk '{print substr($0,0,128)}')
+    local binary_sha=$(shasum -a 512 $dir/heroku-nodejs-plugin-node-$major.tar.gz | awk '{print substr($0,0,128)}')
+
+    if [[ "$downloaded_sha" != "$binary_sha" ]]; then
+        echo "Invalid SHA for file: $dir/heroku-nodejs-plugin-node-$major.tar.gz"
+        exit 1
+    else
+        echo "Verified SHA for file: $dir/heroku-nodejs-plugin-node-$major.tar.gz"
+    fi
+}
+
 trap 'handle_failure' ERR
 
 if [[ -z $TAG_NAME ]]; then
@@ -75,5 +90,8 @@ echo $TAG_NAME > "$PLUGIN_DIR/version"
 
 echo "Plugins downloaded"
 
-# TODO verify hashes
+test_hash 8 $PLUGIN_DIR
+test_hash 9 $PLUGIN_DIR
+test_hash 10 $PLUGIN_DIR
 
+echo "Done"
