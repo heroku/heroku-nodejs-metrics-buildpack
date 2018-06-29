@@ -32,6 +32,20 @@ skip_old_node_versions() {
     fi
 }
 
+skip_new_node_versions() {
+    local node_version="$(node --version)"
+    local major=$(get_node_major_version)
+    if [ "${major}" -gt "10" ]; then
+        echo    ""
+        echo    "       We're still working on rolling out support for gathering Node-specific metrics for Node ${major}.x."
+        echo    ""
+        echo    "       No Node-specific metrics will be collected for this application."
+        echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
+        echo    ""
+        exit 0
+    fi
+}
+
 extract_plugin() {
     local major=$(get_node_major_version)
     local plugin="${BP_DIR}/plugin/heroku-nodejs-plugin-node-${major}.tar.gz"
@@ -56,6 +70,7 @@ trap 'handle_failure' ERR
 ### Main script
 
 skip_old_node_versions
+skip_new_node_versions
 
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 
