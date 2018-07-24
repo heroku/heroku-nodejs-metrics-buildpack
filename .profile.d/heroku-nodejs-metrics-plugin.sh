@@ -6,7 +6,7 @@ if [[ -z "$HEROKU_METRICS_URL" ]] || [[ "${DYNO}" = run\.* ]]; then
 fi
 
 if [[ -z "$NODE_OPTIONS" ]]; then
-    export NODE_OPTIONS="--require $HOME/.heroku/node-metrics-plugin"
+    export NODE_OPTIONS="--require $HOME/.heroku/heroku-nodejs-plugin"
 else
-    export NODE_OPTIONS="${NODE_OPTIONS} --require $HOME/.heroku/node-metrics-plugin"
+    export NODE_OPTIONS="${NODE_OPTIONS} --require $HOME/.heroku/heroku-nodejs-plugin"
 fi
