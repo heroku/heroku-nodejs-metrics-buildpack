@@ -16,6 +16,7 @@ describe "Node Metrics Hello World" do
 
   if ENV['TEST_NODE_VERSION']
     versions = [ENV['TEST_NODE_VERSION']]
+    puts("Running tests for Node version: #{ENV['TEST_NODE_VERSION']}")
   elsif ENV['TEST_ALL_NODE_VERSIONS'] == 'true'
     versions = resolve_all_supported_node_versions()
   else 
@@ -72,7 +73,10 @@ describe "Node Metrics" do
     })
   end
 
-  if ENV['TEST_ALL_NODE_VERSIONS'] == 'true'
+  if ENV['TEST_NODE_VERSION']
+    versions = [ENV['TEST_NODE_VERSION']]
+    puts("Running tests for Node version: #{ENV['TEST_NODE_VERSION']}")
+  elsif ENV['TEST_ALL_NODE_VERSIONS'] == 'true'
     versions = resolve_all_supported_node_versions()
   else 
     versions = resolve_node_version(["8.x", "9.x", "10.x"])
