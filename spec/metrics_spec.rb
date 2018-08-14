@@ -98,7 +98,10 @@ describe "Node Metrics" do
           expect(app.output).to include("-----> Build succeeded!")
           expect(app.output).to include("HerokuNodejsRuntimeMetrics app detected")
           data = successful_json_body(app)
-          expect(data["gauges"]["node.eventloop.delay.ms.max"]).to  be >= 2000
+          expect(data["gauges"]["node.eventloop.delay.ms.max"]).to be >= 2000
+          expect(data["counters"]["node.gc.collections"]).to be >= 0
+          expect(data["counters"]["node.gc.young.collections"]).to be >= 0
+          expect(data["counters"]["node.gc.old.collections"]).to be >= 0
         end
       end
     end
