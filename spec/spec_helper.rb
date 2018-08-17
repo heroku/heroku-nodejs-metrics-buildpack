@@ -60,6 +60,10 @@ def resolve_all_supported_node_versions(options = {})
   list = JSON.parse(body).map { |n| n['number'] }
 
   list.select do |n| 
-    SemVersion.new(n).satisfies?('>= 8.0.0')
+    SemVersion.new(n).satisfies?('>= 6.0.0')
   end
+end
+
+def version_supports_metrics(version)
+  SemVersion.new(version).satisfies?('>= 8.0.0')
 end
