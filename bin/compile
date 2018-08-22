@@ -1,83 +1,12 @@
 #!/bin/bash
 
-set -o errexit    # always exit on error
-set -o pipefail   # don't ignore exit codes when piping output
+cat << EOF
 
-BUILD_DIR=$1
+This buildpack has been merged into the official heroku/nodejs buildpack
+and is no longer necessary.
 
-arrow() {
-  echo '----->' "$@"
-}
+You may safely remove it from your app with the following command:
 
-get_node_major_version() {
-    local node_version="$(node --version)"
-    # major_string will be ex: "6." "8." "10"
-    local major_string=${node_version:1:2}
-    # strip any "."s from major_string
-    local major=${major_string//.}
-    echo $major
-}
+$ heroku buildpacks:remove https://github.com/heroku/heroku-nodejs-metrics-buildpack --app APP_NAME
 
-skip_old_node_versions() {
-    local node_version="$(node --version)"
-    local major=$(get_node_major_version)
-    if [ "${major}" -lt "8" ]; then
-        echo    ""
-        echo -e "       \e[33m\e[1mThe Heroku Node.js Metrics Plugin does not support Node ${node_version}\e[0m"
-        echo    ""
-        echo    "       No Node-specific metrics will be collected for this application."
-        echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
-        echo    ""
-        exit 0
-    fi
-}
-
-skip_new_node_versions() {
-    local node_version="$(node --version)"
-    local major=$(get_node_major_version)
-    if [ "${major}" -gt "10" ]; then
-        echo    ""
-        echo    "       We're still working on rolling out support for gathering Node-specific metrics for Node ${major}.x."
-        echo    ""
-        echo    "       No Node-specific metrics will be collected for this application."
-        echo    "       Read more: https://devcenter.heroku.com/articles/language-runtime-metrics-nodejs"
-        echo    ""
-        exit 0
-    fi
-}
-
-extract_plugin() {
-    local major=$(get_node_major_version)
-    local plugin="${BP_DIR}/plugin/heroku-nodejs-plugin-node-${major}.tar.gz"
-    
-    mkdir -p "${BUILD_DIR}/.heroku/"
-    tar -xzf ${plugin} -C "${BUILD_DIR}/.heroku/"
-}
-
-### Handle errors
-
-handle_failure() {
-  echo    ""
-  echo    ""
-  echo -e "\e[1m\e[33mAn unknown error occured. Failed to install Heroku Node Metrics plugin\e[0m"
-  echo    ""
-  echo -e "\e[1mPlease open a support ticket at https://help.heroku.com/\e[0m"
-  echo    ""
-  echo    ""
-}
-trap 'handle_failure' ERR
-
-### Main script
-
-skip_old_node_versions
-skip_new_node_versions
-
-BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
-
-mkdir -p "${BUILD_DIR}/.profile.d"
-cp .profile.d/heroku-nodejs-metrics-plugin.sh "${BUILD_DIR}/.profile.d"
-
-if [[ -e "${BUILD_DIR}/package.json" ]]; then
-    extract_plugin    
-    arrow "Nodejs metrics plugin installed"
-fi
+EOF
